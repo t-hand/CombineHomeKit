@@ -22,6 +22,7 @@ public final class HMHomeManagerPublisher {
         return Just(homeManager.homes).eraseToAnyPublisher()
     }
 
+    #if !os(watchOS)
     public func updatePrimaryHome(_ home: HMHome) -> AnyPublisher<Void, Error> {
         return Future({ [weak self] (promise) in
             guard let self = self else { return }
@@ -63,4 +64,5 @@ public final class HMHomeManagerPublisher {
         })
         .eraseToAnyPublisher()
     }
+    #endif
 }

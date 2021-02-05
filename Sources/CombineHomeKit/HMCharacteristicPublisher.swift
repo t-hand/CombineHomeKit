@@ -88,6 +88,7 @@ public final class HMCharacteristicPublisher {
         .eraseToAnyPublisher()
     }
 
+    #if !os(watchOS)
     public func updateAuthorizationData(_ data: Data?) -> AnyPublisher<Void, Error> {
         return Future({ [weak self] (promise) in
             guard let self = self else { return }
@@ -101,4 +102,5 @@ public final class HMCharacteristicPublisher {
         })
         .eraseToAnyPublisher()
     }
+    #endif
 }

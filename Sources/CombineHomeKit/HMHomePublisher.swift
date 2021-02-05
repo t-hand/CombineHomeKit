@@ -10,6 +10,7 @@ public final class HMHomePublisher {
         self.home = home
     }
     
+    #if !os(watchOS)
     public func updateName(_ name: String) -> AnyPublisher<Void, Error> {
         return Future({ [weak self] (promise) in
             guard let self = self else { return }
@@ -23,6 +24,7 @@ public final class HMHomePublisher {
         })
         .eraseToAnyPublisher()
     }
+    #endif
 }
 extension HMHomePublisher {
     
@@ -30,6 +32,7 @@ extension HMHomePublisher {
         return Just(home.accessories).eraseToAnyPublisher()
     }
     
+    #if !os(watchOS)
     public func addAccessory(_ accessory: HMAccessory) -> AnyPublisher<Void, Error> {
         return Future({ [weak self] (promise) in
             guard let self = self else { return }
@@ -71,6 +74,7 @@ extension HMHomePublisher {
         })
         .eraseToAnyPublisher()
     }
+    #endif
     
     public func servicesWithTypes(_ serviceTypes: [String]) -> AnyPublisher<[HMService], Never> {
         return Just(home.servicesWithTypes(serviceTypes) ?? []).eraseToAnyPublisher()
@@ -82,6 +86,7 @@ extension HMHomePublisher {
     }
 
     
+    #if !os(watchOS)
     public func unblockAccessory(_ accessory: HMAccessory) -> AnyPublisher<Void, Error> {
         return Future({ [weak self] (promise) in
             guard let self = self else { return }
@@ -123,6 +128,7 @@ extension HMHomePublisher {
         })
         .eraseToAnyPublisher()
     }
+    #endif
     
 }
 
@@ -132,6 +138,7 @@ extension HMHomePublisher {
         return Just(home.currentUser).eraseToAnyPublisher()
     }
 
+    #if !os(watchOS)
     public func manageUsers() -> AnyPublisher<Void, Error> {
         return Future({ [weak self] (promise) in
             guard let self = self else { return }
@@ -145,6 +152,7 @@ extension HMHomePublisher {
         })
         .eraseToAnyPublisher()
     }
+    #endif
     
     public func homeAccessControl(for user: HMUser) -> AnyPublisher<HMHomeAccessControl, Never> {
         return Just(home.homeAccessControl(for: user)).eraseToAnyPublisher()
@@ -157,6 +165,7 @@ extension HMHomePublisher {
         return Just(home.rooms).eraseToAnyPublisher()
     }
     
+    #if !os(watchOS)
     public func addRoom(withName roomName: String) -> AnyPublisher<HMRoom, Error> {
         return Future({ [weak self] (promise) in
             guard let self = self else { return }
@@ -184,6 +193,7 @@ extension HMHomePublisher {
         })
         .eraseToAnyPublisher()
     }
+    #endif
 
     public var roomForEntireHome: AnyPublisher<HMRoom, Never> {
         return Just(home.roomForEntireHome()).eraseToAnyPublisher()
@@ -197,6 +207,7 @@ extension HMHomePublisher {
         return Just(home.zones).eraseToAnyPublisher()
     }
 
+    #if !os(watchOS)
     public func addZone(withName zoneName: String) -> AnyPublisher<HMZone, Error> {
         return Future({ [weak self] (promise) in
             guard let self = self else { return }
@@ -224,6 +235,7 @@ extension HMHomePublisher {
         })
         .eraseToAnyPublisher()
     }
+    #endif
 }
 
 extension HMHomePublisher {
@@ -232,6 +244,7 @@ extension HMHomePublisher {
         return Just(home.serviceGroups).eraseToAnyPublisher()
     }
 
+    #if !os(watchOS)
     public func addServiceGroup(withName serviceGroupName: String) -> AnyPublisher<HMServiceGroup, Error> {
         return Future({ [weak self] (promise) in
             guard let self = self else { return }
@@ -259,6 +272,7 @@ extension HMHomePublisher {
         })
         .eraseToAnyPublisher()
     }
+    #endif
 }
 
 extension HMHomePublisher {
@@ -267,6 +281,7 @@ extension HMHomePublisher {
         return Just(home.actionSets).eraseToAnyPublisher()
     }
 
+    #if !os(watchOS)
     public func addActionSet(withName actionSetName: String) -> AnyPublisher<HMActionSet, Error> {
         return Future({ [weak self] (promise) in
             guard let self = self else { return }
@@ -294,6 +309,7 @@ extension HMHomePublisher {
         })
         .eraseToAnyPublisher()
     }
+    #endif
 
     public func executeActionSet(_ actionSet: HMActionSet) -> AnyPublisher<Void, Error> {
         return Future({ [weak self] (promise) in
@@ -327,6 +343,7 @@ extension HMHomePublisher {
         return Just(home.triggers).eraseToAnyPublisher()
     }
 
+    #if !os(watchOS)
     public func addTrigger(_ trigger: HMTrigger) -> AnyPublisher<Void, Error> {
         return Future({ [weak self] (promise) in
             guard let self = self else { return }
@@ -354,4 +371,5 @@ extension HMHomePublisher {
         })
         .eraseToAnyPublisher()
     }
+    #endif
 }

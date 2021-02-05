@@ -69,6 +69,7 @@ public final class HMAccessoryPublisher {
         return Just(accessory.supportsIdentify).eraseToAnyPublisher()
     }
     
+    #if !os(watchOS)
     public func updateName(_ name: String) -> AnyPublisher<Void, Error> {
         return Future({ [weak self] (promise) in
             guard let self = self else { return }
@@ -82,7 +83,8 @@ public final class HMAccessoryPublisher {
         })
         .eraseToAnyPublisher()
     }
-
+    #endif
+    
     public func identify() -> AnyPublisher<Void, Error> {
         return Future({ [weak self] (promise) in
             guard let self = self else { return }

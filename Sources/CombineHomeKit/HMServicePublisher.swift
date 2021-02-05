@@ -54,6 +54,7 @@ public final class HMServicePublisher {
         return Just(service.linkedServices ?? []).eraseToAnyPublisher()
     }
     
+    #if !os(watchOS)
     public func updateName(_ name: String) -> AnyPublisher<Void, Error> {
         return Future({ [weak self] (promise) in
             guard let self = self else { return }
@@ -81,4 +82,5 @@ public final class HMServicePublisher {
         })
         .eraseToAnyPublisher()
     }
+    #endif
 }
