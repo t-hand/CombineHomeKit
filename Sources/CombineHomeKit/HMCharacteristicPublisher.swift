@@ -60,14 +60,14 @@ public final class HMCharacteristicPublisher {
         .eraseToAnyPublisher()
     }
 
-    public func readValue() -> AnyPublisher<Void, Error> {
+    public func readValue() -> AnyPublisher<Any?, Error> {
         return Future({ [weak self] (promise) in
             guard let self = self else { return }
             self.characteristic.readValue(completionHandler: { (error) in
                 if let error = error {
                     promise(.failure(error))
                 } else {
-                    promise(.success(()))
+                    promise(.success(self.characteristic.value))
                 }
             })
         })
