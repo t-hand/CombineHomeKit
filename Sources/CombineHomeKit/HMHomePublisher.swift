@@ -80,13 +80,14 @@ extension HMHomePublisher {
         return Just(home.servicesWithTypes(serviceTypes) ?? []).eraseToAnyPublisher()
     }
     
+    #if !targetEnvironment(macCatalyst)
     @available(iOS 13.2, *)
     public var supportsAddingNetworkRouter: AnyPublisher<Bool, Never> {
         return Just(home.supportsAddingNetworkRouter).eraseToAnyPublisher()
     }
-
+    #endif
     
-    #if !os(watchOS)
+    #if !os(watchOS) && !targetEnvironment(macCatalyst)
     public func unblockAccessory(_ accessory: HMAccessory) -> AnyPublisher<Void, Error> {
         return Future({ [weak self] (promise) in
             guard let self = self else { return }
@@ -101,6 +102,7 @@ extension HMHomePublisher {
         .eraseToAnyPublisher()
     }
 
+    
     public func addAndSetupAccessories() -> AnyPublisher<Void, Error> {
         return Future({ [weak self] (promise) in
             guard let self = self else { return }
